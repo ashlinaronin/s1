@@ -7,17 +7,16 @@ public class PlayStreamingVideoWebGL : MonoBehaviour
 {
     [Tooltip("name of a file in the StreamingAssets folder to play")]
     public string filename;
-    // Start is called before the first frame update
-    void Start()
+    private VideoPlayer player;
+    void Awake()
     {
-        VideoPlayer player = GetComponent<VideoPlayer>();
-        player.url = System.IO.Path.Combine(Application.streamingAssetsPath, filename); 
-        player.Play();
+        player = GetComponent<VideoPlayer>();
+        player.url = System.IO.Path.Combine(Application.streamingAssetsPath, filename);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void Update() {
+        if (!player.isPlaying) {
+            player.Play();
+        }
     }
 }
